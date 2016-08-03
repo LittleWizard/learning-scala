@@ -18,7 +18,7 @@ for (e <- a if e > 2) yield e
 
 for {
   item <- 1 to 5
-  if item.toString.endsWith("3")
+ // if item.toString.endsWith("3")
 } yield item
 
 val x = Some("1")

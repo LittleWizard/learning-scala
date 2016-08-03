@@ -73,7 +73,7 @@ val transformFn: ((String, Int)) => String = { case (w, _) => w }
 //a Seq[A], has the following signature :
 //def collect[B](pf: PartialFunction[A,B]
 
-//This mthod returns a new sequence by applying the given function to all of it's elements
+//This method returns a new sequence by applying the given function to all of it's elements
 //-the partial function both filters and maps the sequence.
 
 
