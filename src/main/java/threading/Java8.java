@@ -103,7 +103,7 @@ public class Java8 {
         System.out.println(
                 people.stream()
                 .collect(
-                        groupingBy(Person::getAge, mapping(Person::getName, toList()))
+                        groupingBy(Person::getAge, mapping(Person::getName, toList())) //Person::getName is an instance method, the passed people object from the stream
                 )
         );
 
