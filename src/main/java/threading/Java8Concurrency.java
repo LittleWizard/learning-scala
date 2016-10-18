@@ -1,6 +1,8 @@
 package threading;
 
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Java8Concurrency {
@@ -34,12 +36,20 @@ public class Java8Concurrency {
         thread.start();
     }
 
+    public static void three() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        });
+    }
+
 
     public static void main(String[] args) {
 
         //one();
         two();
-
+        three();
 
 
     }
