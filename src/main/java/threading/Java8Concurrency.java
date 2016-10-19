@@ -1,6 +1,8 @@
 package threading;
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
 
 public class Java8Concurrency {
@@ -73,13 +75,67 @@ public class Java8Concurrency {
         System.out.print("result: " + result);
     }
 
+    public static void four() throws InterruptedException, ExecutionException, TimeoutException {
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        Future<Integer> future = executor.submit(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+                return 123;
+            } catch (InterruptedException ex) {
+                throw new IllegalStateException("task interrupted", ex);
+            }
+        });
+        future.get(1, TimeUnit.SECONDS);
 
-    public static void main(String[] args) {
+    }
+
+    public static void five() throws InterruptedException {
+        ExecutorService executor = Executors.newWorkStealingPool();
+
+        Callable<String> callable = () -> {
+            try {
+                String threadName = Thread.currentThread().getName();
+                System.out.println("Foo " + threadName);
+                TimeUnit.SECONDS.sleep(10);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "Value";
+        };
+
+        List<Callable<String>> calls = Arrays.asList(
+                () -> "task1",
+                () -> "task2",
+                () -> "task3",
+                callable);
+
+        executor.invokeAll(calls) //blocks all
+                .stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    }
+                    catch (Exception e) {
+                        throw new IllegalStateException(e);
+                    }
+                })
+                .forEach(System.out::println);
+
+        System.out.println("after executing calls");
+
+        Thread.sleep(10000);
+
+        System.out.println("experiment finished");
+    }
+
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //one();
-        two();
-        three();
-
+      //  two();
+    //    three();
+        five();
 
     }
 
