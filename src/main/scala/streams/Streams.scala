@@ -22,7 +22,8 @@ object Streams {
     val sink = Sink.fold[Int, Int](0)(_ + _)
 
     // connect the Source to the Sink, obtaining a RunnableGraph
-    val runnable: RunnableGraph[Future[Int]] = source.toMat(sink)((_, sum) ⇒ {
+    val runnable: RunnableGraph[Future[Int]] = source.toMat(sink)((w, sum) ⇒ {
+      println(w.toString)
       println("test")
       sum
     }) //Keep.right
