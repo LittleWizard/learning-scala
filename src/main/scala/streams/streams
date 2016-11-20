@@ -1,0 +1,14 @@
+1. common use cases of streams
+
+1. bulk data transfer
+2. real time data transfer
+3. batch processing of large data sets
+4. monitoring and analytics
+
+2. what is special about reactive streams
+
+-> responsive
+-> resilient
+-> scalable
+-> message driven
+
